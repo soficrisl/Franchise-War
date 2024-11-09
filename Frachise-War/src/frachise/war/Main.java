@@ -4,6 +4,10 @@
  */
 package frachise.war;
 
+import Classes.Computer;
+import Classes.Memory;
+import Classes.Character;
+import DataStructures.ListaDoble;
 import DataStructures.Queue;
 
 /**
@@ -16,19 +20,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Queue q = new Queue (10); 
+        Computer com = new Computer(4); 
+        com.simulation();
         
-        
-        for (int i = 0; i < 10; i++) {
-            q.enqueue(i);
-        }
-        
-        q.print();
-        q.enqueue(10);
-        q.dequeue();
-        q.print();
-        q.enqueue(10);
-        q.print();
     }
     
 }
