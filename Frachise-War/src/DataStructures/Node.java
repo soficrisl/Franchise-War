@@ -9,12 +9,12 @@ package DataStructures;
  * @author Sofia
  */
 public class Node {
-    private Object element;
-    private Integer next;
+    private Object element; 
+    private Node next; 
 
     public Node(Object element) {
         this.element = element;
-        this.next = null;
+        this.next = null; 
     }
 
     public Object getElement() {
@@ -25,11 +25,11 @@ public class Node {
         this.element = element;
     }
 
-    public Integer getNext() {
+    public Node getNext() {
         return next;
     }
 
-    public void setNext(Integer next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 }

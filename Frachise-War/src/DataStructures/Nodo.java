@@ -9,20 +9,20 @@ package DataStructures;
  * @author Sofia
  */
 public class Nodo {
-    private Object element; 
-    private Nodo previous, next; 
-    
-    public Nodo (Object element) {
+    private Nodo next, previous;
+    private Object element;
+
+    public Nodo(Object element) {
+        this.next = this.previous = null;
         this.element = element;
-        this.next = this.previous = null; 
     }
 
-    public Object getElement() {
-        return element;
+    public Nodo getNext() {
+        return next;
     }
 
-    public void setElement(Object element) {
-        this.element = element;
+    public void setNext(Nodo next) {
+        this.next = next;
     }
 
     public Nodo getPrevious() {
@@ -33,14 +33,13 @@ public class Nodo {
         this.previous = previous;
     }
 
-    public Nodo getNext() {
-        return next;
+    public Object getElement() {
+        return element;
     }
 
-    public void setNext(Nodo next) {
-        this.next = next;
+    public void setElement(Object element) {
+        this.element = element;
     }
-    
     
     
 }

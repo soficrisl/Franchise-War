@@ -20,7 +20,39 @@ public class Character {
         this.category = category;
         this.company = company;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getCompany() {
+        return company;
+    }
+
+    public void setCompany(int company) {
+        this.company = company;
+    }
     
-            
+     
     
 }

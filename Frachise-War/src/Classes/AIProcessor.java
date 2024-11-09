@@ -6,78 +6,93 @@ package Classes;
 
 import DataStructures.ListaDoble;
 import DataStructures.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
  * @author Sofia
  */
 public class AIProcessor extends Thread{
-    private ListaDoble winners = new ListaDoble(); 
-    private AIProcessor processor; 
-    private Administrator admin; 
-
-    public AIProcessor() {
-        initializelists();
-        this.admin = new Administrator(); 
-    }
-
-    public void initializelists(){
-        // Star Wars Characters
-        Memory.insertCharacter(new Character("Luke Skywalker", "https://example.com/luke.jpg", 4, 0), 0);
-        Memory.insertCharacter(new Character("Darth Vader", "https://example.com/vader.jpg", 5, 0), 0);
-        Memory.insertCharacter(new Character("Princess Leia", "https://example.com/leia.jpg", 3, 0), 0);
-        Memory.insertCharacter(new Character("Han Solo", "https://example.com/han.jpg", 3, 0), 0);
-        Memory.insertCharacter(new Character("Yoda", "https://example.com/yoda.jpg", 4, 0), 0);
-        Memory.insertCharacter(new Character("Obi-Wan Kenobi", "https://example.com/obiwan.jpg", 4, 0), 0);
-        Memory.insertCharacter(new Character("Clone Trooper", "https://example.com/clone.jpg", 0, 0), 0);
-        Memory.insertCharacter(new Character("Stormtrooper", "https://example.com/stormtrooper.jpg", 0, 0), 0);
-        Memory.insertCharacter(new Character("Jango Fett", "https://example.com/jango.jpg", 2, 0), 0);
-        Memory.insertCharacter(new Character("Boba Fett", "https://example.com/boba.jpg", 2, 0), 0);
-        Memory.insertCharacter(new Character("Palpatine", "https://example.com/palpatine.jpg", 5, 0), 0);
-        Memory.insertCharacter(new Character("Rey", "https://example.com/rey.jpg", 4, 0), 0);
-        Memory.insertCharacter(new Character("Finn", "https://example.com/finn.jpg", 3, 0), 0);
-        Memory.insertCharacter(new Character("Poe Dameron", "https://example.com/poe.jpg", 2, 0), 0);
-        Memory.insertCharacter(new Character("Mace Windu", "https://example.com/mace.jpg", 1, 0), 0);
-        Memory.insertCharacter(new Character("Padmé Amidala", "https://example.com/padme.jpg", 3, 0), 0);
-        Memory.insertCharacter(new Character("Qui-Gon Jinn", "https://example.com/quigon.jpg", 2, 0), 0);
-        Memory.insertCharacter(new Character("Ahsoka Tano", "https://example.com/ahsoka.jpg", 4, 0), 0);
-        Memory.insertCharacter(new Character("Jabba the Hutt", "https://example.com/jabba.jpg", 5, 0), 0);
-
-        // Star Trek Characters
-        Memory.insertCharacter(new Character("Captain Kirk", "https://example.com/kirk.jpg", 4, 1), 1);
-        Memory.insertCharacter(new Character("Spock", "https://example.com/spock.jpg", 4, 1), 1);
-        Memory.insertCharacter(new Character("Jean-Luc Picard", "https://example.com/picard.jpg", 4, 1), 1);
-        Memory.insertCharacter(new Character("Data", "https://example.com/data.jpg", 2, 1), 1);
-        Memory.insertCharacter(new Character("Worf", "https://example.com/worf.jpg", 2, 1), 1);
-        Memory.insertCharacter(new Character("Uhura", "https://example.com/uhura.jpg", 1, 1), 1);
-        Memory.insertCharacter(new Character("Scotty", "https://example.com/scotty.jpg", 1, 1), 1);
-        Memory.insertCharacter(new Character("Bones McCoy", "https://example.com/mccoy.jpg", 1, 1), 1);
-        Memory.insertCharacter(new Character("Sulu", "https://example.com/sulu.jpg", 1, 1), 1);
-        Memory.insertCharacter(new Character("Q", "https://example.com/q.jpg", 5, 1), 1);
-        Memory.insertCharacter(new Character("Borg Drone", "https://example.com/borgdrone.jpg", 0, 1), 1);
-        Memory.insertCharacter(new Character("Redshirt", "https://example.com/redshirt.jpg", 0, 1), 1);
-        Memory.insertCharacter(new Character("Chakotay", "https://example.com/chakotay.jpg", 2, 1), 1);
-        Memory.insertCharacter(new Character("Seven of Nine", "https://example.com/seven.jpg", 3, 1), 1);
-        Memory.insertCharacter(new Character("The Doctor", "https://example.com/doctor.jpg", 3, 1), 1);
-        Memory.insertCharacter(new Character("Captain Janeway", "https://example.com/janeway.jpg", 4, 1), 1);
-        Memory.insertCharacter(new Character("Tom Paris", "https://example.com/tomparis.jpg", 1, 1), 1);
-        Memory.insertCharacter(new Character("B'Elanna Torres", "https://example.com/torres.jpg", 2, 1), 1);
-        Memory.insertCharacter(new Character("Tuvok", "https://example.com/tuvok.jpg", 1, 1), 1);
-    }
-   
-
-    public AIProcessor getProcessor() {
-        return processor;
-    }
-
-    public Administrator getAdmin() {
-        return admin;
-    }
+    private ListaDoble winners = new ListaDoble();  
+    private long seconds;
+    private int doing; // 0- decidiendo 1- anunciando 2- esperando
+    private int ciclestilnow; 
     
-    
+    public AIProcessor(long seconds) { 
+        this.seconds = seconds; 
+        this.ciclestilnow =0; 
+        this.doing = 2; 
+    }
+  
     @Override
     public void run () {
-        
+        while (true) {
+            setDoing(2); 
+            try {
+                Memory.getS1().acquire();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AIProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setDoing(0); 
+            System.out.println("AI----------------------------------------------------------------------------");
+            System.out.println("----------------CICLE " + ciclestilnow + " -----------------------------------------\n\n");
+            ciclestilnow++; 
+            Fighter f1 = Memory.getFighters()[0];
+            Fighter f2 = Memory.getFighters()[1];
+            System.out.println("Fighters are " + f1.getId() + " - " + f1.getCharacter().getName()+ " and " + f2.getId() + " - " + f2.getCharacter().getName());
+            double result = Math.random(); 
+            double counter1, counter2; 
+            f1.setCounter(0);
+            f2.setCounter(0);
+            System.out.println("Deciding result");
+            try {
+                Thread.sleep(1000*seconds);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AIProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (result <= 0.4) {
+                //Decicimos el ganador 
+                setDoing(1); 
+                System.out.println("There is a Winner");
+                counter1 = f1.getAgility()*0.30 + f1.getHabilities()*0.20 + f1.getLife_points()*0.30 + f1.getStreght()*0.20 + Math.random(); // Luck plays a part 
+                counter2 = f2.getAgility()*0.30 + f2.getHabilities()*0.20 + f2.getLife_points()*0.30 + f2.getStreght()*0.20 + Math.random(); 
+                
+                if (counter1 == counter2) {
+                    counter1 += Math.random()*0.01;
+                    counter2 += Math.random()*0.01;
+                }
+                
+                if (counter1> counter2) {
+                    System.out.println("Winner is" + f1.getId() + "-" + f1.getCharacter().getName());
+                } else {
+                    System.out.println("Winner is" + f2.getId() + "-" + f2.getCharacter().getName());
+                }
+                
+                winners.insertBegin(f1.getId());
+ 
+            }else if (result > 0.4 && result <= 0.67) {
+                System.out.println("There is a tie");
+                f1.setPriority(1);
+                f2.setPriority(1);
+                Memory.addtoqueue(f1, 0);
+                Memory.addtoqueue(f2, 1);
+            } else {
+                System.out.println("There is no Winner");
+                Memory.putBack(0, f1);
+                Memory.putBack(1, f2);
+            }
+            Memory.updateCounters();
+            Memory.getS2().release();
+        }
     }
+
+    public int getDoing() {
+        return doing;
+    }
+
+    public void setDoing(int state) {
+        this.doing = state;
+    }
+   
     
 }
