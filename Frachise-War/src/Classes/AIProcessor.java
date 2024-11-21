@@ -51,6 +51,8 @@ public class AIProcessor extends Thread{
             f1.setCounter(0);
             f2.setCounter(0);
             Status++;
+            winWars=9;
+            winTrek=9;
             System.out.println("Deciding result");
             try {
                 Thread.sleep(1000*seconds);
