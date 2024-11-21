@@ -167,6 +167,8 @@ for (int i = 0; i < 10; i++) {
         case 9: window.setExcep_id_10_ST(fighterId); break; // Cambiado a setExcep_id_X_ST
     }
 }
+int winwars= computadora.getProcessor().getWinWars();
+        int wintrek=computadora.getProcessor().getWinTrek();
 if (computadora.getProcessor().getStatus()==0){
     window.setEstatus("Esperando");
 }else if(computadora.getProcessor().getStatus()==1){
@@ -181,7 +183,7 @@ if((10-window.getSlide())!=computadora.getProcessor().getSeconds()){
 if (Memory.getFighters()[0]!= null){
 if (window.getName_SW()!= Memory.getFighters()[0].getCharacter().getName()){
     window.setName_SW(Memory.getFighters()[0].getCharacter().getName());}
-if (window.getImage_SW().getDescription() !=Memory.getFighters()[0].getCharacter().getPicture()){
+if (window.getImage_SW().getDescription() !=Memory.getFighters()[0].getCharacter().getPicture() && winwars!=8){
     ImageIcon currentIcon = new ImageIcon(Memory.getFighters()[0].getCharacter().getPicture());
     window.setImage_SW(currentIcon);
 if (window.getID_SW()!= String.valueOf(Memory.getFighters()[0].getId())){
@@ -191,7 +193,7 @@ if (Memory.getFighters()[1] != null) {
     if (window.getName_ST() != Memory.getFighters()[1].getCharacter().getName()) {
         window.setName_ST(Memory.getFighters()[1].getCharacter().getName());
     }
-    if (window.getImage_ST().getDescription() != Memory.getFighters()[1].getCharacter().getPicture()) {
+    if (window.getImage_ST().getDescription() != Memory.getFighters()[1].getCharacter().getPicture() && wintrek!=8) {
         ImageIcon currentIcon = new ImageIcon(Memory.getFighters()[1].getCharacter().getPicture());
         window.setImage_ST(currentIcon);
         if (window.getID_ST() != String.valueOf(Memory.getFighters()[1].getId())) {
@@ -199,8 +201,7 @@ if (Memory.getFighters()[1] != null) {
         }
     }
 }
-        int winwars= computadora.getProcessor().getWinWars();
-        int wintrek=computadora.getProcessor().getWinTrek();
+      
         if (winwars==0){
         window.setEstado_SW("Perdedor");}
         if (winwars==1){
@@ -210,7 +211,11 @@ if (Memory.getFighters()[1] != null) {
         if (winwars==3){
         window.setEstado_SW("No hubo ganador");}
         if (winwars == 8) {           
-        window.setEstado_SW("Esperando");}
+        window.setEstado_SW("Esperando");
+        ImageIcon currentIcon = new ImageIcon("src/Image/Interrogacion_1.png");
+        window.setImage_SW(currentIcon);
+        window.setName_SW("????");
+        window.setID_SW("???????");}
         if (wintrek == 0) {
         window.setEstado_ST("Perdedor");}
         if (wintrek == 1) {
@@ -220,7 +225,11 @@ if (Memory.getFighters()[1] != null) {
         if (wintrek == 3) {           
         window.setEstado_ST("No hubo ganador");}
         if (wintrek == 8) {           
-        window.setEstado_ST("Esperando");}
+        window.setEstado_ST("Esperando");
+        ImageIcon currentIcon = new ImageIcon("src/Image/Interrogacion_1.png");
+        window.setImage_ST(currentIcon);
+        window.setName_ST("????");
+        window.setID_ST("??????");}
         int Starwarswins= computadora.getProcessor().getStarwarswin();
         int Startrekwins= computadora.getProcessor().getStartrekwin();
         if (window.getST_wins() != Startrekwins) {
