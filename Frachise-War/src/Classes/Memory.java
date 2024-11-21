@@ -29,8 +29,7 @@ public final class Memory {
     private static Fighter[] fighters = new Fighter[2]; 
     private static boolean flag = false; 
 
-    private Memory() {
-    }
+    
     
     public static void insertCharacter(Character c, int i){
         if (numcharacters[i] < 20) {

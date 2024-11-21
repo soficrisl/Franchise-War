@@ -71,6 +71,18 @@ public class Queue {
 
         }
     }
+    public Object peek(int index) {
+    if (index < 0 || index >= size) {
+        return null; // Retorna null si el índice es inválido
+    }
+    
+    Node pointer = head; // Comienza desde el inicio de la cola
+    for (int i = 0; i < index; i++) {
+        pointer = pointer.getNext(); // Avanza hasta el índice deseado
+    }
+    
+    return pointer.getElement(); // Retorna el elemento en la posición deseada
+}
 
     public int getSize() {
         return size;
